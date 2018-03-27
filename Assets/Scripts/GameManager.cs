@@ -11,16 +11,16 @@ public class GameManager : MonoBehaviour
     public string cardText1;
     public string cardText2;
 
-    private int redScore;
-    private int blueScore;
+    private int p1Score;
+    private int p2Score;
 
     [Header("Game Text")]
     [SerializeField]
     private Text InfoText;
     [SerializeField]
-    private Text redScoreText;
+    private Text p1ScoreText;
     [SerializeField]
-    private Text blueScoreText;
+    private Text p2ScoreText;
 
     [Header("Button Lists")]
     [SerializeField]
@@ -30,7 +30,7 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private Sprite[] fruitImageList;
 
-    public string PlayerSide;
+    public bool playerOneTurn;
     public int NumberOfPlayers;
 
 
@@ -45,7 +45,7 @@ public class GameManager : MonoBehaviour
 
     void RandomiseCards()
     {
-        wordList = new string[] { "Pehs", "Pehs", "Apel", "Apel", "Oring", "Oring", "Cocnot", "Cocnot", "Raspsbsbry", "Raspsbsbry", "Plum", "Plum", "Bonoona", "Bonoona", "Grep", "Grep" };
+        wordList = new string[] { "Pears", "Pears", "Apple", "Apple", "Banana", "Banana", "Cherry", "Cherry", "Pineapple", "Pineapple", "Strawberry", "Strawberry", "Watermelon", "Watermelon", "Jam", "Jam" };
 
         // Knuth shuffle algorithm
         for (int t = 0; t < wordList.Length; t++)
@@ -68,35 +68,35 @@ public class GameManager : MonoBehaviour
         //Assign Sprites
         for (int t = 0; t < buttonList.Length; t++)
         {
-            if (buttonList[t].GetComponentInChildren<Text>().text == "Pehs")
+            if (buttonList[t].GetComponentInChildren<Text>().text == "Pears")
             {
                 buttonList[t].GetComponentsInChildrenNoParent<Image>()[0].sprite = fruitImageList[0];
             }
-            else if (buttonList[t].GetComponentInChildren<Text>().text == "Apel")
+            else if (buttonList[t].GetComponentInChildren<Text>().text == "Apple")
             {
                 buttonList[t].GetComponentsInChildrenNoParent<Image>()[0].sprite = fruitImageList[1];
             }
-            else if (buttonList[t].GetComponentInChildren<Text>().text == "Oring")
+            else if (buttonList[t].GetComponentInChildren<Text>().text == "Banana")
             {
                 buttonList[t].GetComponentsInChildrenNoParent<Image>()[0].sprite = fruitImageList[2];
             }
-            else if (buttonList[t].GetComponentInChildren<Text>().text == "Cocnot")
+            else if (buttonList[t].GetComponentInChildren<Text>().text == "Cherry")
             {
                 buttonList[t].GetComponentsInChildrenNoParent<Image>()[0].sprite = fruitImageList[3];
             }
-            else if (buttonList[t].GetComponentInChildren<Text>().text == "Raspsbsbry")
+            else if (buttonList[t].GetComponentInChildren<Text>().text == "Pineapple")
             {
                 buttonList[t].GetComponentsInChildrenNoParent<Image>()[0].sprite = fruitImageList[4];
             }
-            else if (buttonList[t].GetComponentInChildren<Text>().text == "Plum")
+            else if (buttonList[t].GetComponentInChildren<Text>().text == "Strawberry")
             {
                 buttonList[t].GetComponentsInChildrenNoParent<Image>()[0].sprite = fruitImageList[5];
             }
-            else if (buttonList[t].GetComponentInChildren<Text>().text == "Bonoona")
+            else if (buttonList[t].GetComponentInChildren<Text>().text == "Watermelon")
             {
                 buttonList[t].GetComponentsInChildrenNoParent<Image>()[0].sprite = fruitImageList[6];
             }
-            else if (buttonList[t].GetComponentInChildren<Text>().text == "Grep")
+            else if (buttonList[t].GetComponentInChildren<Text>().text == "Jam")
             {
                 buttonList[t].GetComponentsInChildrenNoParent<Image>()[0].sprite = fruitImageList[7];
             }
@@ -121,6 +121,8 @@ public class GameManager : MonoBehaviour
                 card1 = null;
                 card1 = null;
 
+                //GivePowerUp(cardText1);
+
                 AwardPoint();
                 UpdateText();
             }
@@ -136,6 +138,8 @@ public class GameManager : MonoBehaviour
                 card1 = null;
                 card1 = null;
 
+                //CheckPowerUps;
+
                 NextPlayer();
                 UpdateText();
             }
@@ -144,39 +148,45 @@ public class GameManager : MonoBehaviour
 
     private void NextPlayer()
     {
-        if (PlayerSide == string.Empty)
+        if (playerOneTurn == false)
         {
-            PlayerSide = "RED";
-        }
-        else if (PlayerSide == "BLUE")
-        {
-            PlayerSide = "RED";
-        }
-        else if (PlayerSide == "RED")
-        {
-            PlayerSide = "BLUE";
+            playerOneTurn = true;
         }
 
-        Debug.Log("<color=blue>PlayerSide:</color>" + PlayerSide);
+        else if (playerOneTurn == true)
+        {
+            playerOneTurn = false;
+        }
+
+        Debug.Log("<color=blue>Human Players Turn? -</color>" + playerOneTurn);
     }
 
     private void UpdateText()
     {
-        InfoText.text = "It is " + PlayerSide + "'s turn";
-        redScoreText.text = "RED Score: " + redScore.ToString();
-        blueScoreText.text = "BLUE Score: " + blueScore.ToString();
+        if (playerOneTurn == true)
+        {
+            InfoText.text = "It's Your Turn";
+        }
+        else if (playerOneTurn == false)
+        {
+            InfoText.text = "Evil Robot Computer Player's Turn";
+        }
+
+        p1ScoreText.text = "Your Score: " + p1Score.ToString();
+        p2ScoreText.text = "Enemy Score: " + p2Score.ToString();
     }
 
     private void AwardPoint()
     {
-        if (PlayerSide == "RED")
+        if (playerOneTurn == true)
         {
-            redScore++;
+            p1Score++;
         }
-        else if (PlayerSide == "BLUE")
+        else if (playerOneTurn == false)
         {
-            blueScore++;
+            p2Score++;
         }
     }
+
 
 }

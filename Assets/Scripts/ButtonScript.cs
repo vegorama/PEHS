@@ -45,8 +45,8 @@ public class ButtonScript : MonoBehaviour {
 
             ShowCard();
 
-            Debug.Log("<color=red>cardText1:</color>" + gameManager.cardText1);
-            Debug.Log("<color=red>card1:</color>" + button);
+            //Debug.Log("<color=red>cardText1:</color>" + gameManager.cardText1);
+            //Debug.Log("<color=red>card1:</color>" + button);
         }
         else if (gameManager.cardText2 == "")
         {
@@ -55,8 +55,8 @@ public class ButtonScript : MonoBehaviour {
 
             button.GetComponentInChildren<Text>().enabled = true;
 
-            Debug.Log("<color=red>cardText2:</color>" + gameManager.cardText2);
-            Debug.Log("<color=red>card2:</color>" + button);
+            //Debug.Log("<color=red>cardText2:</color>" + gameManager.cardText2);
+            //Debug.Log("<color=red>card2:</color>" + button);
 
             ShowCard();
 
