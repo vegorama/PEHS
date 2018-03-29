@@ -5,8 +5,11 @@ using UnityEngine.UI;
 
 public class ButtonScript : MonoBehaviour {
 
+    [Header("References")]
     GameObject GameManagerRef;
     GameManager gameManager;
+    PowerUps powerUps;
+
     public Button button;
     public GameObject cardImage;
     Text buttonText;
@@ -16,11 +19,10 @@ public class ButtonScript : MonoBehaviour {
     void Start ()
     { 
         GameManagerRef = GameObject.Find("GameManager");
-
         gameManager = GameManagerRef.GetComponent<GameManager>();
+        powerUps = GameManagerRef.GetComponent<PowerUps>();
 
         buttonText = button.GetComponentInChildren<Text>();
-
         HideText();
     }
 
@@ -38,29 +40,45 @@ public class ButtonScript : MonoBehaviour {
 
     public void FlipClick()
     {
-        if (gameManager.cardText1 == "")
+        if (gameManager.powerUpMode)
         {
-            gameManager.card1 = button;
-            gameManager.cardText1 = button.GetComponentInChildren<Text>().text;
+            if (gameManager.bananaMode)
+            {
+                gameManager.cardSpecial = button;
+            }
 
-            ShowCard();
-
-            //Debug.Log("<color=red>cardText1:</color>" + gameManager.cardText1);
-            //Debug.Log("<color=red>card1:</color>" + button);
+            else if (gameManager.pineappleMode)
+            {
+                gameManager.cardSpecial = button;
+            }
         }
-        else if (gameManager.cardText2 == "")
+
+        else if (!gameManager.powerUpMode)
         {
-            gameManager.card2 = button;
-            gameManager.cardText2 = button.GetComponentInChildren<Text>().text;
+            if (gameManager.cardText1 == "")
+            {
+                gameManager.card1 = button;
+                gameManager.cardText1 = button.GetComponentInChildren<Text>().text;
 
-            button.GetComponentInChildren<Text>().enabled = true;
+                ShowCard();
 
-            //Debug.Log("<color=red>cardText2:</color>" + gameManager.cardText2);
-            //Debug.Log("<color=red>card2:</color>" + button);
+                //Debug.Log("<color=red>cardText1:</color>" + gameManager.cardText1);
+                //Debug.Log("<color=red>card1:</color>" + button);
+            }
+            else if (gameManager.cardText2 == "")
+            {
+                gameManager.card2 = button;
+                gameManager.cardText2 = button.GetComponentInChildren<Text>().text;
 
-            ShowCard();
+                button.GetComponentInChildren<Text>().enabled = true;
 
-            StartCoroutine(gameManager.CardCheck());
+                //Debug.Log("<color=red>cardText2:</color>" + gameManager.cardText2);
+                //Debug.Log("<color=red>card2:</color>" + button);
+
+                ShowCard();
+
+                StartCoroutine(gameManager.CardCheck());
+            }
         }
 
     }

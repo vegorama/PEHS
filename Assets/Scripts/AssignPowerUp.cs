@@ -5,21 +5,20 @@ using UnityEngine;
 public class AssignPowerUp : MonoBehaviour {
 
     public GameManager GameManager;
+    public PowerUps powerUps;
 
-    private int pearPower;
-    private int applePower;
-    private int bananaPower;
-    private int cherryPower;
-    private int pineapplePower;
-    private int strawberryPower;
-    private int watermelonPower;
-    private int jamPower;
-
+    public int pearPower;
+    public int applePower;
+    public int bananaPower;
+    public int cherryPower;
+    public int pineapplePower;
+    public int strawberryPower;
+    public int watermelonPower;
+    public int jamPower;
 
     private void Start()
     {
-        Dictionary<string, int> fruitPowers = new Dictionary<string, int>();
-
+        //Dictionary<string, int> fruitPowers = new Dictionary<string, int>();
     }
 
     public void GivePower(string fruitType)
@@ -97,4 +96,88 @@ public class AssignPowerUp : MonoBehaviour {
         }
     }
 
+    public void CheckPower(bool PlayerOneTurn)
+    {
+        if (PlayerOneTurn)
+        {
+            if (pearPower == 1)
+            {
+                //Lockdown first card
+                powerUps.PearPower();
+            }
+            if (applePower == 1)
+            {
+                //lockdown second card
+                powerUps.ApplePower();
+            }
+            if (bananaPower == 1)
+            {
+                //reshuffle
+                powerUps.BananaPower();
+            }
+            if (cherryPower == 1)
+            {
+                //keep picks hidden
+            }
+            if (pineapplePower == 1)
+            {
+                //pick a square and place down two onions
+            }
+            if (strawberryPower == 1)
+            {
+                //show a reveal-a-card button
+            }
+            if (watermelonPower == 1)
+            {
+                //dunno yet
+            }
+            if (jamPower == 1)
+            {
+                // award TWO points
+                powerUps.JamPower();
+                Debug.Log("Awarding TWO points for the JAM");
+            }
+        }
+
+        else if (!PlayerOneTurn)
+        {
+            if (pearPower == 2)
+            {
+                //Lockdown first card
+                powerUps.PearPower();
+            }
+            if (applePower == 2)
+            {
+                //Lockdown second card
+                powerUps.ApplePower();
+            }
+            if (bananaPower == 2)
+            {
+                //reshuffle
+                powerUps.BananaPower();
+            }
+            if (cherryPower == 2)
+            {
+                //keep picks hidden
+            }
+            if (pineapplePower == 2)
+            {
+                //pick a square and place down two onions
+            }
+            if (strawberryPower == 2)
+            {
+                //show a reveal-a-card button
+            }
+            if (watermelonPower == 2)
+            {
+                //dunno yet
+            }
+            if (jamPower == 2)
+            {
+                // award TWO points
+                powerUps.JamPower();
+                Debug.Log("Awarding TWO points for the JAM");
+            }
+        }
+    }
 }
