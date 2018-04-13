@@ -18,6 +18,7 @@ public class AssignPowerUp : MonoBehaviour {
     public int onionPower;
 
 
+    //Instant Effects + Awarding Power
     public void GivePower(string fruitType)
     {
        if (gameManager.playerOneTurn == true)
@@ -54,11 +55,15 @@ public class AssignPowerUp : MonoBehaviour {
             }
             if (fruitType == "Jam")
             {
+                //Instant Effect!
                 jamPower = 1;
+                powerUps.JamPower();
             }
             if (fruitType == "Onion")
             {
+                //Instant Effect!
                 onionPower = 1;
+                powerUps.OnionPower();
             }
         }
 
@@ -96,15 +101,21 @@ public class AssignPowerUp : MonoBehaviour {
             }
             if (fruitType == "Jam")
             {
+                //Instant Effect!
                 jamPower = 2;
+                powerUps.JamPower();
             }
             if (fruitType == "Onion")
             {
+                //Instant Effect!
                 onionPower = 2;
+                powerUps.OnionPower();
             }
         }
     }
 
+
+    //End of Turn Effects
     public void CheckPower(bool PlayerOneTurn)
     {
         if (PlayerOneTurn)
@@ -137,7 +148,7 @@ public class AssignPowerUp : MonoBehaviour {
             }
             if (strawberryPower == 1)
             {
-                //show a reveal-a-card button
+                //Effect is instant
             }
             if (watermelonPower == 1)
             {
@@ -146,14 +157,11 @@ public class AssignPowerUp : MonoBehaviour {
             if (jamPower == 1)
             {
                 // award TWO points
-                powerUps.JamPower();
-                Debug.Log("Awarding TWO points for the JAM");
+                //Effect is instant
             }
             if (onionPower == 1)
             {
-                //Minus 2 points
-                powerUps.OnionPower();
-                Debug.Log("Lose two points to the Onion!");
+                //Effect is instant
             }
         }
 
@@ -187,7 +195,7 @@ public class AssignPowerUp : MonoBehaviour {
             }
             if (strawberryPower == 2)
             {
-                //show a reveal-a-card button
+                //Effect is instant
             }
             if (watermelonPower == 2)
             {
@@ -196,14 +204,11 @@ public class AssignPowerUp : MonoBehaviour {
             if (jamPower == 2)
             {
                 // award TWO points
-                powerUps.JamPower();
-                Debug.Log("Awarding TWO points for the JAM");
+                //Effect is instant
             }
             if (onionPower == 2)
             {
-                //Minus 2 points
-                powerUps.OnionPower();
-                Debug.Log("Lose two points to the Onion!");
+                //Effect is instant
             }
         }
     }

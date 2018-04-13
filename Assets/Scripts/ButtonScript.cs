@@ -29,7 +29,7 @@ public class ButtonScript : MonoBehaviour {
         powerUps = GameManagerRef.GetComponent<PowerUps>();
 
         buttonText = button.GetComponentInChildren<Text>();
-        HideText();
+        HideCard();
     }
 
     public void CardBackReset(bool playerOneTurn)
@@ -63,7 +63,7 @@ public class ButtonScript : MonoBehaviour {
         }
     }
 
-    public void HideText()
+    public void HideCard()
     {
         buttonText.color = new Color(0, 0, 0, 0);
         cardImage.SetActive(false);

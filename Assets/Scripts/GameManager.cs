@@ -17,6 +17,9 @@ public class GameManager : MonoBehaviour
     public int p1Score;
     public int p2Score;
 
+    [Header("Pass and Play")]
+    public GameObject passItBanner;
+
     [Header("Game Text")]
     public Text InfoText;
     [SerializeField]
@@ -178,23 +181,53 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private void ShowCherryPicks()
+    private void HideCardsChecker()
     {
+        //Check for Strawberry
+        if (assignPowerUp.strawberryPower == 3)
+        {
+            for (int t = 0; t < buttonList.Length; t++)
+            {
+                if (buttonList[t] != null)
+                {
+                    buttonList[t].GetComponent<ButtonScript>().cardImage.SetActive(false);
+                }
+            }
+            //Strawberry Power Used, set to zero
+            assignPowerUp.strawberryPower = 0;
+        }
+
+
+        //Check for Cherry Power
         if (assignPowerUp.cherryPower == 1 && (playerOneTurn == true))
         {
-            card1.GetComponent<ButtonScript>().HideText();
-            card2.GetComponent<ButtonScript>().HideText();
+            card1.GetComponent<ButtonScript>().HideCard();
+            card2.GetComponent<ButtonScript>().HideCard();
         }
         else if (assignPowerUp.cherryPower == 2 && (playerOneTurn == false))
         {
-            card1.GetComponent<ButtonScript>().HideText();
-            card2.GetComponent<ButtonScript>().HideText();
+            card1.GetComponent<ButtonScript>().HideCard();
+            card2.GetComponent<ButtonScript>().HideCard();
         }
+
         else
         {
         card1.GetComponent<ButtonScript>().CardBackColour();
         card2.GetComponent<ButtonScript>().CardBackColour();
         }
+    }
+
+    private IEnumerator PassToPlayer()
+    {
+        passItBanner.SetActive(true);
+
+        yield return new WaitUntil(() => passItBanner.GetComponent<PassedToPlayer>().nextPlayerActive == true);
+
+        passItBanner.GetComponent<PassedToPlayer>().nextPlayerActive = false;
+
+        passItBanner.SetActive(false);
+
+        yield return 0;
     }
 
 
@@ -241,7 +274,7 @@ public class GameManager : MonoBehaviour
 
                 yield return new WaitForSeconds(.5f);
 
-                ShowCherryPicks();
+                HideCardsChecker();
 
                 cardText1 = string.Empty;
                 cardText2 = string.Empty;
@@ -256,11 +289,14 @@ public class GameManager : MonoBehaviour
                 {
                     yield return StartCoroutine( powerUps.PineapplePower() );
                 }
-
-
+                
                 NextPlayer();
                 ResetCardBackColour();
+
+                yield return StartCoroutine(PassToPlayer());
+
                 UpdateText();
+
             }
         }
     }
