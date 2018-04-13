@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class AssignPowerUp : MonoBehaviour {
 
-    public GameManager GameManager;
+    public GameManager gameManager;
     public PowerUps powerUps;
 
     public int pearPower;
@@ -15,15 +15,12 @@ public class AssignPowerUp : MonoBehaviour {
     public int strawberryPower;
     public int watermelonPower;
     public int jamPower;
+    public int onionPower;
 
-    private void Start()
-    {
-        //Dictionary<string, int> fruitPowers = new Dictionary<string, int>();
-    }
 
     public void GivePower(string fruitType)
     {
-       if (GameManager.playerOneTurn == true)
+       if (gameManager.playerOneTurn == true)
         {
             if (fruitType == "Pear")
             {
@@ -47,7 +44,9 @@ public class AssignPowerUp : MonoBehaviour {
             }
             if (fruitType == "Strawberry")
             {
+                //Instant Effect!
                 strawberryPower = 1;
+                powerUps.StrawberryPower();
             }
             if (fruitType == "Watermelon")
             {
@@ -57,9 +56,13 @@ public class AssignPowerUp : MonoBehaviour {
             {
                 jamPower = 1;
             }
+            if (fruitType == "Onion")
+            {
+                onionPower = 1;
+            }
         }
 
-        else if (GameManager.playerOneTurn == false)
+        else if (gameManager.playerOneTurn == false)
         {
             if (fruitType == "Pear")
             {
@@ -83,7 +86,9 @@ public class AssignPowerUp : MonoBehaviour {
             }
             if (fruitType == "Strawberry")
             {
+                //Instant Effect!
                 strawberryPower = 2;
+                powerUps.StrawberryPower();
             }
             if (fruitType == "Watermelon")
             {
@@ -92,6 +97,10 @@ public class AssignPowerUp : MonoBehaviour {
             if (fruitType == "Jam")
             {
                 jamPower = 2;
+            }
+            if (fruitType == "Onion")
+            {
+                onionPower = 2;
             }
         }
     }
@@ -122,6 +131,9 @@ public class AssignPowerUp : MonoBehaviour {
             if (pineapplePower == 1)
             {
                 //pick a square and place down two onions
+                gameManager.InfoText.text = "Pineapple Power! Pick a card to place smelly onions";
+                gameManager.powerUpMode = true;
+                gameManager.pineappleMode = true;
             }
             if (strawberryPower == 1)
             {
@@ -136,6 +148,12 @@ public class AssignPowerUp : MonoBehaviour {
                 // award TWO points
                 powerUps.JamPower();
                 Debug.Log("Awarding TWO points for the JAM");
+            }
+            if (onionPower == 1)
+            {
+                //Minus 2 points
+                powerUps.OnionPower();
+                Debug.Log("Lose two points to the Onion!");
             }
         }
 
@@ -163,6 +181,9 @@ public class AssignPowerUp : MonoBehaviour {
             if (pineapplePower == 2)
             {
                 //pick a square and place down two onions
+                gameManager.InfoText.text = "Pineapple Power! Pick a card to place smelly onions";
+                gameManager.powerUpMode = true;
+                gameManager.pineappleMode = true;
             }
             if (strawberryPower == 2)
             {
@@ -177,6 +198,12 @@ public class AssignPowerUp : MonoBehaviour {
                 // award TWO points
                 powerUps.JamPower();
                 Debug.Log("Awarding TWO points for the JAM");
+            }
+            if (onionPower == 2)
+            {
+                //Minus 2 points
+                powerUps.OnionPower();
+                Debug.Log("Lose two points to the Onion!");
             }
         }
     }
